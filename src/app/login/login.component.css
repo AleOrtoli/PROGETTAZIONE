@@ -1,0 +1,102 @@
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://www.virginradio.it/resizer/1200/720/true/1522324821926_1522324836.jpg--assistere_a_un_concerto_ogni_quindici_giorni_allunga_la_vita_di_nove_anni__scopri_i_risultati_della_ricerca_.jpg?1522324837541'); 
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .login-form {
+            background: rgba(0, 0, 0, 0.8); /* Dark translucent background */
+            padding: 40px;
+            width: 340px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+        }
+        h2 {
+            display: flex;
+            justify-content: center;
+        }
+        h2 a {
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        h2 a:hover{
+            color: rgb(192, 201, 202);
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #4CAF50;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        input[type="submit"],
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db; 
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9; 
+        }
+
+        .register-btn {
+            background-color: #2ecc71; 
+            color: white;
+            margin-top: 10px;
+        }
+
+        .register-btn:hover {
+            background-color: #27ae60; 
+        }
+
+        @media (max-width: 600px) {
+            .login-form {
+                width: 90%;
+                padding: 30px;
+            }
+        }
+ 

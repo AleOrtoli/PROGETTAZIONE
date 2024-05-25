@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventForm - Raccomandazioni</title>
+    <link href="ia.component.css">
+</head>
+<body>
+
+    <!-- Chat Popup -->
+    <div class="chat-popup" id="chatPopup">
+        <div class="chatArea">IA</div>
+            <!-- domanda -->
+            <div *ngFor="let message of messages" class="message" [ngClass]="message.type">
+                    <span *ngIf="message.type === 'domanda'" class="bold-text">you:  </span>    
+                    <span *ngIf="message.type === 'risposta'" class="bold-text">IA:  </span> 
+                    {{ message.text }}
+           
+            <!-- risposta --> 
+            </div> 
+
+    <!-- layout -->
+    <div class = "chat-footer">
+        <label for="domanda">Fai una domanda:</label>
+        <input type="text" id="domanda" name="domanda" #domanda required>
+        <button id="send-button" type="submit"(click)="submit()">Invia</button>
+    </div>
+        <a href="/home" class = "button" id="homeButton">Torna alla Home</a>
+    </div>
+</body>
+
+</html>

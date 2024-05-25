@@ -1,0 +1,59 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('https://wallpapers.com/blog/wp-		content/uploads/2023/06/Web-development-concept-with-person-using-a-laptop-		computer.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+.register-form {
+    background: rgba(0, 0, 0, 0.8); 
+    padding: 40px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+h2 {
+    display: flex;
+    justify-content: center;
+}
+h2 a {
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+h2 a:hover{
+    color: rgb(192, 201, 202);
+}
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    background: white;
+    color: black;
+}
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}

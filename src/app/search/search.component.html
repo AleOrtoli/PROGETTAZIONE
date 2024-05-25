@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventForm - Cerca Eventi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    	
+	<header>
+        	<h1><a routerLink ="/home">EventForm</a> </h1>
+    </header>
+    <div class="content">
+        <h2>Cerca Eventi</h2>
+        <p>Inserisci il nome dell'evento che desideri cercare.</p>
+        <input type="text" class="search-bar" placeholder="Cerca eventi..." id="searchInput">
+        <button class="btn" id="searchButton">Cerca</button>
+    </div>
+	<footer>
+        <p><a routerLink="/home" class="btn">Torna alla Home</a></p>
+    </footer>
+
+    <footer>
+        <p>&copy; 2024 EventForm. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+       
+        document.getElementById('searchButton').addEventListener('click', function() {
+            
+            var eventName = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (isEventExists(eventName)) {
+                
+                var eventPageURL = getEventPageURL(eventName);
+                
+                window.location.href = eventPageURL;
+            } else {
+                
+                alert('L\'evento cercato non esiste. Si prega di riprovare.');
+            }
+        });
+    });
+
+    
+    function isEventExists(eventName) {
+        
+        var availableEvents = ['ed sheeran', 'beyonce'];
+        
+        return availableEvents.includes(eventName);
+    }
+
+   
+    function getEventPageURL(eventName) {
+        
+        if (eventName === 'ed sheeran') {
+            return 'edsheeran.html';
+        } else if (eventName === 'beyonce') {
+            return 'beyonce.html';
+        }
+        
+        return '';
+    }
+    </script>
+</body>
+</html>
