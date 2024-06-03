@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,14 +10,25 @@
     <div class="login-form">
         <h2><a routerLink="/home" class = "logo">EventForm</a></h2>
         <h3>Welcome Back!</h3>
-        <form method="POST" action="/login">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <input type="submit" value="Login">
-            <button type="button" class="register-btn" onclick="window.location.href='registrazionelink.html';">Registrati ora</button>
-        </form>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
+
+            <div>
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" ngModel required #email="ngModel">
+              <div *ngIf="email.invalid && email.touched">L'email è richiesta</div>
+            </div>
+
+            <div>
+              <label for="password">Password:</label>
+              <input type="password" id="password" name="password" ngModel required #password="ngModel">
+              <div *ngIf="password.invalid && password.touched">La password è richiesta</div>
+            </div>
+
+            <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+            <!-- Mostra il messaggio di errore -->
+            <div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+          </form>
     </div>
 </body>
 </html>
