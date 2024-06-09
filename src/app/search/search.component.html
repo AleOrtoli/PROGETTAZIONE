@@ -9,13 +9,22 @@
 <body>
     	
 	<header>
-        	<h1><a routerLink ="/home">EventForm</a> </h1>
+        <h1><a routerLink ="/home">EventForm</a> </h1>
     </header>
     <div class="content">
         <h2>Cerca Eventi</h2>
         <p>Inserisci il nome dell'evento che desideri cercare.</p>
-        <input type="text" class="search-bar" placeholder="Cerca eventi..." id="searchInput">
-        <button class="btn" id="searchButton">Cerca</button>
+        <form #searchForm="ngForm" (ngSubmit)="searchEvents(searchForm)" novalidate>
+
+            <div>
+                <label for="eventName">Nome Evento:</label>
+                <input type="text" id="eventName" name="eventName" ngModel required #eventName="ngModel">
+                <div *ngIf="eventName.invalid && eventName.touched">Il nome dell'evento è richiesto</div>
+            </div>
+        
+            <button type="submit" [disabled]="searchForm.invalid">Cerca</button>
+        
+        </form>
     </div>
 	<footer>
         <p><a routerLink="/home" class="btn">Torna alla Home</a></p>
@@ -24,45 +33,5 @@
     <footer>
         <p>&copy; 2024 EventForm. Tutti i diritti riservati.</p>
     </footer>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-       
-        document.getElementById('searchButton').addEventListener('click', function() {
-            
-            var eventName = document.getElementById('searchInput').value.toLowerCase();
-            
-            if (isEventExists(eventName)) {
-                
-                var eventPageURL = getEventPageURL(eventName);
-                
-                window.location.href = eventPageURL;
-            } else {
-                
-                alert('L\'evento cercato non esiste. Si prega di riprovare.');
-            }
-        });
-    });
-
-    
-    function isEventExists(eventName) {
-        
-        var availableEvents = ['ed sheeran', 'beyonce'];
-        
-        return availableEvents.includes(eventName);
-    }
-
-   
-    function getEventPageURL(eventName) {
-        
-        if (eventName === 'ed sheeran') {
-            return 'edsheeran.html';
-        } else if (eventName === 'beyonce') {
-            return 'beyonce.html';
-        }
-        
-        return '';
-    }
-    </script>
 </body>
 </html>

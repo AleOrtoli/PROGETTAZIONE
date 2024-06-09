@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { SearchComponent } from './search/search.component';
 import { IaComponent } from './ia/ia.component';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 @NgModule({
     declarations: [
     ],
@@ -18,7 +20,10 @@ import { IaComponent } from './ia/ia.component';
         LoginComponent,
         HomeComponent,
         //collegamenti
-        AppRoutingModule
+        AppRoutingModule,
+        RouterModule,
+        CommonModule
+
     ],
     providers: [],
     bootstrap: []
