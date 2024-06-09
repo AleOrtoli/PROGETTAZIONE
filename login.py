@@ -1,45 +1,26 @@
-import bcrypt
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import mysql.connector
-from mysql.connector import connect
-
+import requests
+ 
 app = Flask(__name__)
 CORS(app)
-
-# Configura la connessione al database MySQL
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="192837465",
-    database = "event_management"
-)
-
+ 
+AUTH_SERVICE_URL = "http://localhost:5002/authenticate"
+ 
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
     email = data.get('email')
     password = data.get('password')
-
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-    user = cursor.fetchone()
-    cursor.close()
-
-    if user:
-        password_hash = user[3]
-        if bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8')):
-            response = {'message': 'Login avvenuto con successo', 'user_id': user[0]}
-            print(response)
-            return jsonify(response), 200
-        else:
-            response = {'message': 'Credenziali errate'}
-            print(response)
-            return jsonify(response), 401
+ 
+    response = requests.post(AUTH_SERVICE_URL, json={'email': email, 'password': password})
+    auth_status_code = response.status_code
+    auth_response = response.json()
+ 
+    if auth_status_code == 200:
+        return jsonify(auth_response), 200
     else:
-        response = {'message': 'Utente non trovato'}
-        print(response)
-        return jsonify(response), 401
+        return jsonify(auth_response), auth_status_code
  
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
