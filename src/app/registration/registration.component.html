@@ -11,6 +11,7 @@
         <h2><a routerLink="/home" class="logo">EventForm</a></h2>
         <h3>Registrati</h3>     
         <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" novalidate>
+            
         <input type="text" name="name" ngModel placeholder="Nome completo" required #name="ngModel" />
         <div *ngIf="name.invalid && name.touched">Il nome è richiesto</div>
         
@@ -20,6 +21,9 @@
         <input type="password" name="password" ngModel placeholder="Password" required #password="ngModel" />
         <div *ngIf="password.invalid && password.touched">La password è richiesta</div>
         
+        <input type="tel" name="phone" ngModel placeholder="Numero di telefono" required #phone="ngModel" />
+        <div *ngIf="phone.invalid && phone.touched">Il numero di telefono è richiesto</div>
+
         <button type="submit" [disabled]="registerForm.invalid">Crea account</button>
         <!-- Mostra il messaggio di errore -->
         <div *ngIf="RegistrationFailed" class="error-message">{{ RegistrationFailed }}</div>
@@ -30,6 +34,7 @@
       <p>Nome: {{ name.value }}</p>
       <p>Email: {{ email.value }}</p>
       <p>Password: {{ password.value }}</p>
+      <p>Cellulare: {{ phone.value }}</p>
       <p>Form value: {{ registerForm.value | json }}</p>
       <p>Form valid: {{ registerForm.valid }}</p>
     </div>
