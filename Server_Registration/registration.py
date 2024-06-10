@@ -23,6 +23,10 @@ def register():
     email = data.get('email')
     password = data.get('password')
     print("il nome è", name, email, password)
+
+    # Verifica che l'email contenga la chiocciola
+    if not email or '@' not in email:
+        return jsonify({'error': 'Email non valida. Deve contenere una chiocciola.'}), 400
     
     # Genera un ID univoco
     user_id = str(uuid.uuid4())
@@ -41,7 +45,9 @@ def register():
         
     except mysql.connector.Error as err:
         print(f"Error: {err}")
-        return jsonify({'message': 'Errore durante la registrazione'}), 500
+        if err.errno == 1062:  # Duplicate entry error code
+            return jsonify({'message': 'Email già esistente', 'error': str(err)}), 409
+        return jsonify({'message': 'Errore durante la registrazione', 'error': str(err)}), 500
 
     return jsonify({'message': 'Registrazione avvenuta con successo'}), 200
 
