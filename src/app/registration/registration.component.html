@@ -21,6 +21,10 @@
         <div *ngIf="password.invalid && password.touched">La password è richiesta</div>
         
         <button type="submit" [disabled]="registerForm.invalid">Crea account</button>
+        <!-- Mostra il messaggio di errore -->
+        <div *ngIf="RegistrationFailed" class="error-message">{{ RegistrationFailed }}</div>
+        <!-- Mostra il messaggio di Successo -->
+        <div *ngIf="RegistrationSuccess" class="message">{{ RegistrationSuccess }}</div>
       </form>
       
       <p>Nome: {{ name.value }}</p>

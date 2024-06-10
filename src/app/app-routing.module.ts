@@ -12,8 +12,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   { path: 'search', component: SearchComponent },
   { path: 'ia', component: IaComponent },
-  { path: '', component: HomeComponent }, // Redireziona alla pagina 1 di default
-  { path: '**', redirectTo: '/page1' } // Gestione degli URL non validi
+  { path: '', redirectTo: '/home', pathMatch: 'full'} // Gestione degli URL non validi
 ];
 
 @NgModule({

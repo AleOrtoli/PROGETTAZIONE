@@ -14,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
   
 }) 
 export class RegistrationComponent {
+  RegistrationSuccess : String = '';
+  RegistrationFailed : String = '';
   private apiUrl = 'http://localhost:5001/registration';
 
   constructor(private http: HttpClient) {}
@@ -23,12 +25,18 @@ export class RegistrationComponent {
       this.http.post<any>(this.apiUrl, registerForm.value).subscribe(
         response => {
           console.log('User registered successfully:', response);
-          // Qui puoi aggiungere la logica per gestire una registrazione avvenuta con successo
+          this.RegistrationSuccess = 'Registrazione avvenuta con successo.';
         },
         error => {
           console.error('Error during registration:', error);
-          // Qui puoi aggiungere la logica per gestire errori durante la registrazione
+          if (error.error && error.error.error) {
+            this.RegistrationFailed = error.error.error;
+          } else {
+            this.RegistrationFailed = 'Registrazione fallita';
+          }
         }
+         // Verifica se l'errore contiene un messaggio specifico dal backend
+        
       );
     } else {
       console.log('Form is invalid');

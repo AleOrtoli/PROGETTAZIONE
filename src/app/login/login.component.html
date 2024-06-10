@@ -28,6 +28,8 @@
 
             <!-- Mostra il messaggio di errore -->
             <div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+             <!-- Mostra il messaggio di benvenuto -->
+             <div *ngIf="loginSuccess" class="message">{{ loginSuccess }}</div>
           </form>
     </div>
 </body>

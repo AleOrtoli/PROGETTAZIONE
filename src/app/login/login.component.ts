@@ -4,7 +4,6 @@ import {NgForm} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,20 +14,27 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginError: string = '';
+  loginSuccess: string = '';
   private apiUrl = 'http://localhost:5000/login'; 
   
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
   onLogin(loginForm: NgForm): void {
     if (loginForm.valid) {
       this.http.post<any>(this.apiUrl, loginForm.value ).subscribe(
         response => {
           console.log('success:', response);
+          this.loginSuccess = 'Benvenuto.';
         },
+        
         error => {
           console.error('Error during login:', error);
-          
-          this.loginError = 'Credenziali di accesso errate. Riprova.';
+          // Verifica se l'errore contiene un messaggio specifico dal backend
+          if (error.error && error.error.error) {
+            this.loginError = error.error.error;
+          } else {
+            this.loginError = 'Credenziali di accesso errate. Riprova.';
+          }
         }
       );
     } else {
