@@ -1,11 +1,15 @@
 import bcrypt
+import jwt
+import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import mysql.connector
-from mysql.connector import connect
 
 app = Flask(__name__)
 CORS(app)
+
+# Chiave segreta per la codifica dei token JWT
+SECRET_KEY = 'il_tuo_segreto_super_segretissimo'
 
 # Configura la connessione al database MySQL
 db = mysql.connector.connect(
@@ -29,7 +33,17 @@ def authenticate():
     if user:
         password_hash = user[3]
         if bcrypt.checkpw(password.encode('utf-8'), password_hash.encode('utf-8')):
-            response = {'message': 'Login avvenuto con successo', 'user_id': user[0]}
+            # Creazione del token JWT
+            token = jwt.encode({
+                'user_id': user[0],
+                'role': user[6],  # Supponendo che il ruolo dell'utente sia nella quinta colonna
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+            }, SECRET_KEY, algorithm='HS256')
+
+            response = {
+                'message': 'Login avvenuto con successo',
+                'token': token
+            }
             return jsonify(response), 200
         else:
             response = {'message': 'Credenziali errate'}

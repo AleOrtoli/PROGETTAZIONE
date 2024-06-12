@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 192837465
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  auth_service:
+    build: .
+    ports:
+      - "5002:5002"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=192837465
+      - DB_NAME=event_management
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
