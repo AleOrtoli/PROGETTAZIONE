@@ -29,7 +29,8 @@ class RegistrationTestCase(unittest.TestCase):
             data = {
                 'name': 'Matteo',
                 'email': 'unique_matteo5@gmail.com',  # Utilizza un'email unica per il test
-                'password': 'password123'
+                'password': 'Password123?',
+                'phone': '1234567890'
             }
 
             # Chiamata POST al nostro endpoint di registrazione
@@ -61,13 +62,14 @@ class RegistrationTestCase(unittest.TestCase):
             data = {
                 'name': 'Test User',
                 'email': 'MarioMario@gmail.com',
-                'password': 'password123'
+                'password': 'Password123?',
+                'phone': '1234567890'
             }
 
             # Chiamata POST al nostro endpoint di registrazione
             response = self.app.post(self.base_url, json=data)
             
-            # Verifica che la risposta sia 409 Conflict
+            
             self.assertEqual(response.status_code, 409)
             self.assertIn('Email gi\\u00e0 esistente', response.data.decode('utf-8'))
 
@@ -77,12 +79,41 @@ class RegistrationTestCase(unittest.TestCase):
         self.invalid_email_data = {
             'name': 'Test User',
             'email': 'invalidemail.com',  # Email senza chiocciola
-            'password': 'TestPassword123'
+            'password': 'TestPassword123',
+            'phone': '1234567890'
         }
         response = requests.post(self.base_url, json=self.invalid_email_data)
         self.assertEqual(response.status_code, 400)
         self.assertIn('Email non valida. Deve contenere una chiocciola.', response.json()['error'])
 
+    def test_invalid_cell_number(self):
+        # Dati da inviare nella richiesta POST con un numero di cellulare non valido
+        data = {
+            'name': 'Alessandro',
+            'email': 'test@example.com',
+            'phone': '12345',  # Numero di cellulare non valido (meno di 10 cifre)
+            'password': 'password123'
+        }
+        # Invia la richiesta POST
+        response = requests.post(self.base_url, json=data)
+        
+        # Verifica che la risposta sia stata ricevuta con un codice di stato 400 (Bad Request)
+        self.assertEqual(response.status_code, 400)
+
+        # Verifica che la risposta contenga il messaggio di errore appropriato
+        expected_error_message = 'Numero di cellulare non valido. Deve essere composto da 10 cifre numeriche.'
+        self.assertEqual(response.json()['error'], expected_error_message)
+        
+    def test_invalid_password(self):
+        self.invalid_email_data = {
+            'name': 'Test User',
+            'email': 'valid@email.com',  # Email senza chiocciola
+            'password': 'Test',
+            'phone': '1234567890'
+        }
+        response = requests.post(self.base_url, json=self.invalid_email_data)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('Password non valida. Deve essere lunga almeno 8 caratteri, contenere almeno una lettera maiuscola e un carattere speciale.', response.json()['error'])
 
 if __name__ == '__main__':
     unittest.main()
